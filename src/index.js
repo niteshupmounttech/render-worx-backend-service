@@ -23,7 +23,7 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 
-//app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ✅ Swagger docs should match API versioning
 app.use("/admin/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));

@@ -8,8 +8,8 @@ const logger = require("./logger"); // ✅ import logger
 // const uploadPath = path.join(__dirname, "..", "uploads");
 // const getPath = "/uploads/"; // URL prefix for served files
 
-const uploadPath = "/home/camel/files"; // absolute server path
-const getPath = "http://13.61.199.168/camel/files/"; // URL prefix served by Nginx
+const uploadPath = path.join(__dirname, "..", "uploads");
+const getPath = process.env.BASE_URL + "/uploads/";
 
 
 // Ensure upload folder exists
