@@ -10,11 +10,11 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://render-worx-backend-service.onrender.com", // change in prod
+        url: "https://render-worx-backend-service.onrender.com",
         description: "Render api server",
       },
       {
-        url: "http://localhost:4000", // change in prod
+        url: "http://localhost:4000",
         description: "Local server",
       },
     ],
@@ -23,7 +23,7 @@ const swaggerOptions = {
         bearerAuth: {
           type: "http",
           scheme: "bearer",
-          bearerFormat: "JWT", // optional
+          bearerFormat: "JWT",
         },
       },
     },
@@ -33,8 +33,18 @@ const swaggerOptions = {
       },
     ],
   },
-  //apis: ["./src/routes/*.js", "./src/controllers/*.js"], // path to your route/controller files
- apis: ["./src/routes/AdminUserRoute.js","./src/routes/RoleRoute.js","./src/routes/ModuleRoute.js", "./src/controllers/AdminUserController.js", "./src/controllers/ModuleController.js", "./src/controllers/RoleController.js"],
+  apis: [
+    "./src/routes/AdminUserRoute.js",
+    "./src/routes/RoleRoute.js",
+    "./src/routes/ModuleRoute.js",
+    "./src/routes/HomeBannerRoute.js",
+    "./src/routes/PortfolioRoute.js",
+    "./src/controllers/AdminUserController.js",
+    "./src/controllers/ModuleController.js",
+    "./src/controllers/HomeBannerController.js",
+    "./src/controllers/RoleController.js",
+    "./src/controllers/PortfolioController.js",
+  ],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);

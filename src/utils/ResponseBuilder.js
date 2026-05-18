@@ -174,6 +174,44 @@ function buildContentResponse(content) {
 }
 
 
+function buildPortfolioResponse(portfolio) {
+  if (!portfolio) return null;
+
+  return {
+    id: portfolio._id,
+    category: portfolio.category,
+    year: portfolio.year,
+    city: portfolio.city,
+    country: portfolio.country,
+    location: portfolio.location,
+    shortDescription: portfolio.shortDescription,
+    fullDescription: portfolio.fullDescription,
+    status: portfolio.status,
+    featured: portfolio.featured,
+    clientName: portfolio.clientName,
+    surfaceArea: portfolio.surfaceArea,
+    scope: portfolio.scope,
+    softwareUsed: portfolio.softwareUsed,
+    tags: portfolio.tags || [],
+    thumbnailFile: portfolio.thumbnailFile,
+    galleryFiles: portfolio.galleryFiles || [],
+    createdAt: convertDateToString(portfolio.createdAt),
+    updatedAt: convertDateToString(portfolio.updatedAt),
+  };
+}
+
+function buildHomeBannerResponse(banner) {
+  if (!banner) return null;
+
+  return {
+    id: banner._id,
+    mediaFiles: banner.mediaFiles,
+    type: banner.type,
+    createdAt: convertDateToString(banner.createdAt),
+    updatedAt: convertDateToString(banner.updatedAt),
+  };
+}
+
 function buildSoundResponse(sound) {
   if (!sound) return null;
 
@@ -199,5 +237,7 @@ module.exports = {
   buildCountryResponse,
   buildCityResponse,
   buildContentResponse,
+  buildPortfolioResponse,
+  buildHomeBannerResponse,
   buildSoundResponse
 };

@@ -10,6 +10,8 @@ const moduleRoutes = require("./routes/ModuleRoute");
 const roleRoutes = require("./routes/RoleRoute");
 const locationRoutes = require("./routes/LocationRoute");
 const appContentRoutes = require("./routes/AppContentRoute");
+const homeBannerRoutes = require("./routes/HomeBannerRoute");
+const portfolioRoutes = require("./routes/PortfolioRoute");
 const swaggerSpec = require("./config/SwaggerConfig"); // 👈 import swagger config
 
 const app = express();
@@ -38,6 +40,12 @@ app.use("/admin/location", locationRoutes);
 
 // ✅ App Content routes
 app.use("/admin/content", appContentRoutes);
+
+// ✅ Home Banner routes
+app.use("/admin/home", homeBannerRoutes);
+
+// ✅ Portfolio routes
+app.use("/admin/portfolio", portfolioRoutes);
 
 
 // Health check
