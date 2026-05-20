@@ -179,6 +179,7 @@ function buildPortfolioResponse(portfolio) {
 
   return {
     id: portfolio._id,
+    title: portfolio.title,
     category: portfolio.category,
     year: portfolio.year,
     city: portfolio.city,

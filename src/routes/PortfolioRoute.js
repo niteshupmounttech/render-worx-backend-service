@@ -23,6 +23,8 @@ const upload = multer({ storage: multer.memoryStorage() });
  *               id:
  *                 type: string
  *                 description: Pass to update existing portfolio
+ *               title:
+ *                 type: string
  *               category:
  *                 type: string
  *               year:
@@ -119,6 +121,30 @@ router.get("/getAllPortfolios", ctrl.getAllPortfolios);
 
 /**
  * @openapi
+ * /admin/portfolio/getPortfolio/{id}:
+ *   get:
+ *     tags: [Portfolio Controller]
+ *     summary: Get portfolio by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Portfolio fetched successfully
+ *       404:
+ *         description: Portfolio not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get("/getPortfolio/:id", ctrl.getPortfolio);
+
+/**
+ * @openapi
  * /admin/portfolio/blockUnblock:
  *   post:
  *     tags: [Portfolio Controller]
@@ -149,30 +175,6 @@ router.get("/getAllPortfolios", ctrl.getAllPortfolios);
  *       500:
  *         description: Internal server error
  */
-/**
- * @openapi
- * /admin/portfolio/getPortfolio/{id}:
- *   get:
- *     tags: [Portfolio Controller]
- *     summary: Get portfolio by ID
- *     security:
- *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Portfolio fetched successfully
- *       404:
- *         description: Portfolio not found
- *       500:
- *         description: Internal server error
- */
-router.get("/getPortfolio/:id", ctrl.getPortfolio);
-
 router.post("/blockUnblock", ctrl.blockUnblockPortfolio);
 
 /**
