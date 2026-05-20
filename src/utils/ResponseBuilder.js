@@ -174,6 +174,19 @@ function buildContentResponse(content) {
 }
 
 
+function buildContactInfoResponse(contact) {
+  if (!contact) return null;
+
+  return {
+    id: contact._id,
+    email: contact.email,
+    mobile: contact.mobile,
+    address: contact.address,
+    createdAt: convertDateToString(contact.createdAt),
+    updatedAt: convertDateToString(contact.updatedAt),
+  };
+}
+
 function buildPortfolioResponse(portfolio) {
   if (!portfolio) return null;
 
@@ -238,6 +251,7 @@ module.exports = {
   buildCountryResponse,
   buildCityResponse,
   buildContentResponse,
+  buildContactInfoResponse,
   buildPortfolioResponse,
   buildHomeBannerResponse,
   buildSoundResponse

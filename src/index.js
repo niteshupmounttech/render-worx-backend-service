@@ -12,6 +12,7 @@ const locationRoutes = require("./routes/LocationRoute");
 const appContentRoutes = require("./routes/AppContentRoute");
 const homeBannerRoutes = require("./routes/HomeBannerRoute");
 const portfolioRoutes = require("./routes/PortfolioRoute");
+const contactInfoRoutes = require("./routes/ContactInfoRoute");
 const swaggerSpec = require("./config/SwaggerConfig"); // 👈 import swagger config
 
 const app = express();
@@ -46,6 +47,9 @@ app.use("/admin/home", homeBannerRoutes);
 
 // ✅ Portfolio routes
 app.use("/admin/portfolio", portfolioRoutes);
+
+// ✅ Contact Info routes
+app.use("/admin/contact", contactInfoRoutes);
 
 
 // Health check
