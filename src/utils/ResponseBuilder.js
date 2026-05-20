@@ -174,6 +174,25 @@ function buildContentResponse(content) {
 }
 
 
+function buildOurServiceResponse(service) {
+  if (!service) return null;
+
+  return {
+    id: service._id,
+    title: service.title,
+    subTitle: service.subTitle,
+    shortDescriptions: service.shortDescriptions,
+    fullDescriptions: service.fullDescriptions,
+    serviceOffered: service.serviceOffered || [],
+    icon: service.icon,
+    thumbnailFile: service.thumbnailFile,
+    galleryFiles: service.galleryFiles || [],
+    status: service.status,
+    createdAt: convertDateToString(service.createdAt),
+    updatedAt: convertDateToString(service.updatedAt),
+  };
+}
+
 function buildContactInfoResponse(contact) {
   if (!contact) return null;
 
@@ -251,6 +270,7 @@ module.exports = {
   buildCountryResponse,
   buildCityResponse,
   buildContentResponse,
+  buildOurServiceResponse,
   buildContactInfoResponse,
   buildPortfolioResponse,
   buildHomeBannerResponse,
