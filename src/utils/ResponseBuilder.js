@@ -174,6 +174,23 @@ function buildContentResponse(content) {
 }
 
 
+function buildBlogResponse(blog) {
+  if (!blog) return null;
+
+  return {
+    id: blog._id,
+    title: blog.title,
+    writtenBy: blog.writtenBy,
+    difficulty: blog.difficulty,
+    topic: blog.topic,
+    content: blog.content,
+    mediaFiles: blog.mediaFiles || [],
+    status: blog.status,
+    createdAt: convertDateToString(blog.createdAt),
+    updatedAt: convertDateToString(blog.updatedAt),
+  };
+}
+
 function buildOurServiceResponse(service) {
   if (!service) return null;
 
@@ -270,6 +287,7 @@ module.exports = {
   buildCountryResponse,
   buildCityResponse,
   buildContentResponse,
+  buildBlogResponse,
   buildOurServiceResponse,
   buildContactInfoResponse,
   buildPortfolioResponse,
