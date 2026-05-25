@@ -77,4 +77,38 @@ async function getAllEnquiries(pageIndex, pageSize, status, searchText) {
   }
 }
 
-module.exports = { addEnquiry, getEnquiry, getAllEnquiries };
+async function readEnquiry(id, read) {
+  try {
+    const enquiry = await enquiryRepo.findById(id);
+    if (!enquiry) return buildResponse(404, "Enquiry not found", null);
+    if (enquiry.read === read) return buildResponse(400, `Enquiry already ${read ? "read" : "unread"}`, null);
+    const updated = await enquiryRepo.updateById(id, { read, updatedAt: new Date() });
+    return buildResponse(200, `Enquiry marked as ${read ? "read" : "unread"}`, buildEnquiryResponse(updated));
+  } catch (err) {
+    logger.error(`readEnquiry error: ${err.message}`, { stack: err.stack });
+    return buildResponse(500, err.message, null);
+  }
+}
+
+async function blockUnblockEnquiry(id, status) {
+  try {
+    const enquiry = await enquiryRepo.findById(id);
+    if (!enquiry) return buildResponse(DataConstant.NOT_FOUND, DataConstant.RECORD_NOT_FOUND);
+    if (enquiry.status === status) {
+      if (status === DataConstant.SHORT_ONE) return buildResponse(400, "Enquiry already active");
+      if (status === DataConstant.SHORT_TWO) return buildResponse(400, "Enquiry already inactive");
+      if (status === 0) return buildResponse(400, "Enquiry already deleted");
+    }
+    const updated = await enquiryRepo.updateById(id, { status, updatedAt: new Date() });
+    let message = "Invalid request";
+    if (status === 0) message = "Enquiry deleted successfully";
+    if (status === DataConstant.SHORT_ONE) message = "Enquiry activated successfully";
+    if (status === DataConstant.SHORT_TWO) message = "Enquiry deactivated successfully";
+    return buildResponse(DataConstant.OK, message, buildEnquiryResponse(updated));
+  } catch (err) {
+    logger.error(`blockUnblockEnquiry error: ${err.message}`, { stack: err.stack });
+    return buildResponse(DataConstant.SERVER_ERROR, DataConstant.SERVER_MESSAGE);
+  }
+}
+
+module.exports = { addEnquiry, getEnquiry, getAllEnquiries, readEnquiry, blockUnblockEnquiry };

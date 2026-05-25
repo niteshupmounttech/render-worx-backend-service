@@ -23,9 +23,30 @@ exports.getEnquiry = async (req, res) => {
   }
 };
 
+exports.readEnquiry = async (req, res) => {
+  try {
+    const { id, read } = req.body;
+    const result = await enquiryService.readEnquiry(id, read);
+    res.status(200).json(result);
+  } catch (err) {
+    logger.error("❌ readEnquiry controller error", { error: err });
+    res.status(500).json(buildResponse(500, err.message, null));
+  }
+};
+
+exports.blockUnblockEnquiry = async (req, res) => {
+  try {
+    const { id, status } = req.body;
+    const result = await enquiryService.blockUnblockEnquiry(id, status);
+    res.status(200).json(result);
+  } catch (err) {
+    logger.error("❌ blockUnblockEnquiry controller error", { error: err });
+    res.status(500).json(buildResponse(500, err.message, null));
+  }
+};
+
 exports.getAllEnquiries = async (req, res) => {
   try {
-    let { pageIndex = 0, pageSize = 10, status, searchText } = req.query;
     pageIndex = parseInt(pageIndex, 10);
     pageSize = parseInt(pageSize, 10);
     searchText = typeof searchText === "string" ? searchText.trim() : "";

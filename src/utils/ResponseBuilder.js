@@ -273,6 +273,7 @@ function buildEnquiryResponse(enquiry) {
     email: enquiry.email,
     projectType: enquiry.projectType,
     message: enquiry.message,
+    read: enquiry.read ?? false,
     status: enquiry.status,
     createdAt: convertDateToString(enquiry.createdAt),
     updatedAt: convertDateToString(enquiry.updatedAt),
