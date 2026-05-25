@@ -1,5 +1,5 @@
 {
-  "name": "render-worx-admin-service",
+  "name": "admin-service",
   "version": "1.0.0",
   "main": "src/index.js",
 "scripts": {
