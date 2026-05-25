@@ -16,6 +16,7 @@ const contactInfoRoutes = require("./routes/ContactInfoRoute");
 const ourServiceRoutes = require("./routes/OurServiceRoute");
 const blogRoutes = require("./routes/BlogRoute");
 const enquiryRoutes = require("./routes/EnquiryRoute");
+const dashboardRoutes = require("./routes/DashboardRoute");
 const swaggerSpec = require("./config/SwaggerConfig"); // 👈 import swagger config
 
 const app = express();
@@ -62,6 +63,9 @@ app.use("/admin/blog", blogRoutes);
 
 // ✅ Enquiry routes
 app.use("/admin/enquiry", enquiryRoutes);
+
+// ✅ Dashboard routes
+app.use("/admin/dashboard", dashboardRoutes);
 
 
 // Health check
