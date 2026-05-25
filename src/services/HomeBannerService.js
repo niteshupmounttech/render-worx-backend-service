@@ -21,7 +21,7 @@ async function updateHomeBanner(mediaFile, type) {
     let mediaUrl = null;
     if (mediaFile) {
       try {
-        mediaUrl = await fileUtil.uploadFile(mediaFile);
+        mediaUrl = await fileUtil.uploadFile(mediaFile, "banner");
         logger.info(`📸 Uploaded banner media: ${mediaUrl}`);
       } catch (err) {
         logger.error("❌ Failed to upload banner media", { error: err });

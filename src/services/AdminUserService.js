@@ -56,7 +56,7 @@ async function addAdmin(data) {
 
     if (data.imageFile) {
       try {
-        imageUrl = await fileUtil.uploadFile(data.imageFile);
+        imageUrl = await fileUtil.uploadFile(data.imageFile, "user");
         logger.info(`📸 Uploaded profile image: ${imageUrl}`);
       } catch (err) {
         logger.error("❌ Failed to upload profile image", {

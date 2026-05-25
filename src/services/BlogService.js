@@ -26,7 +26,7 @@ async function addBlog(data) {
 
     // Upload thumbnail file
     let thumbnailUrl = data.thumbnailFile && typeof data.thumbnailFile === "object"
-      ? await fileUtil.uploadFile(data.thumbnailFile).catch(() => null)
+      ? await fileUtil.uploadFile(data.thumbnailFile, "blog").catch(() => null)
       : data.thumbnailFile || "";
 
     // Upload media files
@@ -34,7 +34,7 @@ async function addBlog(data) {
     if (data.mediaFiles && data.mediaFiles.length > 0) {
       for (const file of data.mediaFiles) {
         try {
-          const url = await fileUtil.uploadFile(file);
+          const url = await fileUtil.uploadFile(file, "blog");
           mediaUrls.push(url);
         } catch (err) {
           logger.error("❌ Failed to upload media file", { error: err });

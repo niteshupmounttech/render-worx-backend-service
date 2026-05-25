@@ -3,25 +3,28 @@ const path = require("path");
 const crypto = require("crypto");
 const axios = require("axios");
 const XLSX = require("xlsx");
-const logger = require("./logger"); // ✅ import logger
+const logger = require("./logger");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 
-// const uploadPath = path.join(__dirname, "..", "uploads");
-// const getPath = "/uploads/"; // URL prefix for served files
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 const uploadPath = path.join(__dirname, "..", "uploads");
-const getPath = process.env.BASE_URL + "/uploads/";
 
-
-// Ensure upload folder exists
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });
   logger.info(`📂 Created uploads directory at: ${uploadPath}`);
 }
 
 /**
- * Upload a file from multer
+ * Upload a file from multer to S3
  */
-async function uploadFile(file) {
+async function uploadFile(file, folder = "general") {
   try {
     if (!file) {
       logger.warn("⚠️ No file provided to uploadFile()");
@@ -29,70 +32,47 @@ async function uploadFile(file) {
     }
 
     const ext = path.extname(file.originalname);
-    const fileName = crypto.randomUUID() + ext;
-    const filePath = path.join(uploadPath, fileName);
+    const fileName = `${folder}/${crypto.randomUUID()}${ext}`;
 
-    // If file.buffer exists (memoryStorage)
-    if (file.buffer) {
-      fs.writeFileSync(filePath, file.buffer);
-    } 
-    // If file.path exists (diskStorage)
-    else if (file.path) {
-      fs.copyFileSync(file.path, filePath);
-    } else {
-      throw new Error("Invalid file object: missing buffer or path");
-    }
+    const buffer = file.buffer || fs.readFileSync(file.path);
 
-    const fileUrl = getPath + fileName;
+    await s3.send(new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: fileName,
+      Body: buffer,
+      ContentType: file.mimetype,
+    }));
 
-    logger.info(`✅ File uploaded: ${file.originalname} → ${fileUrl}`);
+    const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    logger.info(`✅ File uploaded to S3: ${file.originalname} → ${fileUrl}`);
     return fileUrl;
   } catch (err) {
-    logger.error("❌ uploadFile error", { error: err });
+    logger.error("❌ uploadFile S3 error", { error: err });
     throw err;
   }
 }
 
 /**
- * Download an image from URL and save locally
+ * Download an image from URL and upload to S3
  */
 async function downloadImage(imageUrl) {
   try {
     const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
-    let ext = "jpg";
+    const contentType = response.headers["content-type"] || "image/jpeg";
 
-    const contentType = response.headers["content-type"];
-    if (contentType) {
-      switch (contentType) {
-        case "image/jpeg":
-          ext = "jpg";
-          break;
-        case "image/png":
-          ext = "png";
-          break;
-        case "image/gif":
-          ext = "gif";
-          break;
-        case "image/webp":
-          ext = "webp";
-          break;
-        case "image/bmp":
-          ext = "bmp";
-          break;
-        case "image/svg+xml":
-          ext = "svg";
-          break;
-        default:
-          ext = "jpg";
-      }
-    }
-
+    const extMap = { "image/jpeg": "jpg", "image/png": "png", "image/gif": "gif", "image/webp": "webp", "image/bmp": "bmp", "image/svg+xml": "svg" };
+    const ext = extMap[contentType] || "jpg";
     const fileName = crypto.randomUUID() + "." + ext;
-    const filePath = path.join(uploadPath, fileName);
-    fs.writeFileSync(filePath, response.data);
-    const fileUrl = getPath + fileName;
 
-    logger.info(`⬇️ Image downloaded from ${imageUrl} → ${fileUrl}`);
+    await s3.send(new PutObjectCommand({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: fileName,
+      Body: Buffer.from(response.data),
+      ContentType: contentType,
+    }));
+
+    const fileUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+    logger.info(`⬇️ Image downloaded and uploaded to S3: ${imageUrl} → ${fileUrl}`);
     return fileUrl;
   } catch (err) {
     logger.error("❌ downloadImage error", { error: err, url: imageUrl });

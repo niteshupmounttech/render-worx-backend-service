@@ -677,3 +677,10 @@
 {"level":"info","message":"📸 Uploaded banner media: http://13.61.199.168/camel/files/a407b686-7e5c-4214-8279-b8334847edc4.webp","timestamp":"2026-05-18 13:11:57"}
 {"level":"info","message":"✅ File uploaded: starbucks_logo.webp → http://13.61.199.168/camel/files/8005bbd8-0b33-4cc2-b45a-aca534c7d546.webp","timestamp":"2026-05-18 13:12:30"}
 {"level":"info","message":"📸 Uploaded banner media: http://13.61.199.168/camel/files/8005bbd8-0b33-4cc2-b45a-aca534c7d546.webp","timestamp":"2026-05-18 13:12:30"}
+{"level":"info","message":"addBlog: id=NEW","timestamp":"2026-05-25 23:45:57"}
+{"level":"info","message":"✅ File uploaded to S3: starbucks_logo.webp → https://render-worx-s3.s3.ap-south-1.amazonaws.com/d598a070-f812-4cbd-9f91-85eae243f02d.webp","timestamp":"2026-05-25 23:45:57"}
+{"level":"info","message":"✅ File uploaded to S3: starbucs_background.jpeg → https://render-worx-s3.s3.ap-south-1.amazonaws.com/4eb409ff-7ed1-4dcc-b280-26b9287a751a.jpeg","timestamp":"2026-05-25 23:45:58"}
+{"level":"info","message":"Created new blog with id=6a1491deb97be42f5da34d5a","timestamp":"2026-05-25 23:45:58"}
+{"level":"info","message":"addBlog: id=6a1491deb97be42f5da34d5a","timestamp":"2026-05-25 23:53:42"}
+{"level":"info","message":"✅ File uploaded to S3: starbucks_logo.webp → https://render-worx-s3.s3.ap-south-1.amazonaws.com/blog/6bf8213e-13db-4e22-bdc5-007dea542c5d.webp","timestamp":"2026-05-25 23:53:42"}
+{"level":"info","message":"✅ File uploaded to S3: starbucs_background.jpeg → https://render-worx-s3.s3.ap-south-1.amazonaws.com/blog/717ddb79-8adb-427e-af60-3509d2b59489.jpeg","timestamp":"2026-05-25 23:53:43"}

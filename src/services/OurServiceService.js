@@ -28,7 +28,7 @@ async function addService(data) {
     let iconUrl = null;
     if (data.icon) {
       try {
-        iconUrl = await fileUtil.uploadFile(data.icon);
+        iconUrl = await fileUtil.uploadFile(data.icon, "service");
         logger.info(`🎨 Uploaded icon: ${iconUrl}`);
       } catch (err) {
         logger.error("❌ Failed to upload icon", { error: err });
@@ -39,7 +39,7 @@ async function addService(data) {
     let thumbnailUrl = null;
     if (data.thumbnailFile) {
       try {
-        thumbnailUrl = await fileUtil.uploadFile(data.thumbnailFile);
+        thumbnailUrl = await fileUtil.uploadFile(data.thumbnailFile, "service");
         logger.info(`🖼️ Uploaded thumbnail: ${thumbnailUrl}`);
       } catch (err) {
         logger.error("❌ Failed to upload thumbnail", { error: err });
@@ -51,7 +51,7 @@ async function addService(data) {
     if (data.galleryFiles && data.galleryFiles.length > 0) {
       for (const file of data.galleryFiles) {
         try {
-          const url = await fileUtil.uploadFile(file);
+          const url = await fileUtil.uploadFile(file, "service");
           galleryUrls.push(url);
         } catch (err) {
           logger.error("❌ Failed to upload gallery file", { error: err });
