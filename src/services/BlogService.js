@@ -24,6 +24,11 @@ async function addBlog(data) {
 
     logger.info(`addBlog: id=${data.id || "NEW"}`);
 
+    // Upload thumbnail file
+    let thumbnailUrl = data.thumbnailFile && typeof data.thumbnailFile === "object"
+      ? await fileUtil.uploadFile(data.thumbnailFile).catch(() => null)
+      : data.thumbnailFile || "";
+
     // Upload media files
     let mediaUrls = [];
     if (data.mediaFiles && data.mediaFiles.length > 0) {
@@ -39,6 +44,7 @@ async function addBlog(data) {
 
     const safeUpdates = {
       ...data,
+      thumbnailFile: thumbnailUrl,
       mediaFiles: mediaUrls.length > 0 ? mediaUrls : data.mediaFiles,
       updatedAt: new Date(),
     };

@@ -184,6 +184,7 @@ function buildBlogResponse(blog) {
     difficulty: blog.difficulty,
     topic: blog.topic,
     content: blog.content,
+    thumbnailFile: blog.thumbnailFile || "",
     mediaFiles: blog.mediaFiles || [],
     status: blog.status,
     createdAt: convertDateToString(blog.createdAt),

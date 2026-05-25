@@ -6,6 +6,7 @@ exports.addBlog = async (req, res) => {
   try {
     const result = await blogService.addBlog({
       ...req.body,
+      thumbnailFile: req.files?.thumbnailFile?.[0] || null,
       mediaFiles: req.files?.mediaFiles || [],
     });
     res.status(200).json(result);

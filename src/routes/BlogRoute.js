@@ -33,6 +33,9 @@ const upload = multer({ storage: multer.memoryStorage() });
  *                 type: string
  *               content:
  *                 type: string
+ *               thumbnailFile:
+ *                 type: string
+ *                 format: binary
  *               mediaFiles:
  *                 type: array
  *                 items:
@@ -48,7 +51,7 @@ const upload = multer({ storage: multer.memoryStorage() });
  */
 router.post(
   "/addBlog",
-  upload.fields([{ name: "mediaFiles", maxCount: 20 }]),
+  upload.fields([{ name: "thumbnailFile", maxCount: 1 }, { name: "mediaFiles", maxCount: 20 }]),
   ctrl.addBlog
 );
 

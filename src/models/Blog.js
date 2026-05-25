@@ -7,6 +7,7 @@ const BlogSchema = new mongoose.Schema(
     difficulty: { type: String, default: "" },
     topic: { type: String, default: "" },
     content: { type: String, default: "" },
+    thumbnailFile: { type: String, default: "" },
     mediaFiles: [{ type: String }],
     status: { type: Number, default: 1 },
   },
