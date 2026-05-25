@@ -10,7 +10,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://render-worx-backend-service.onrender.com",
+        url: "http://65.1.88.184:4000",
         description: "Render api server",
       },
       {
