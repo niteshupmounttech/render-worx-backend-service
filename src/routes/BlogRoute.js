@@ -33,6 +33,8 @@ const upload = multer({ storage: multer.memoryStorage() });
  *                 type: string
  *               content:
  *                 type: string
+ *               category:
+ *                 type: string
  *               thumbnailFile:
  *                 type: string
  *                 format: binary

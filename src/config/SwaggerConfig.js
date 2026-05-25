@@ -42,6 +42,7 @@ const swaggerOptions = {
     "./src/routes/ContactInfoRoute.js",
     "./src/routes/OurServiceRoute.js",
     "./src/routes/BlogRoute.js",
+    "./src/routes/EnquiryRoute.js",
     "./src/controllers/AdminUserController.js",
     "./src/controllers/ModuleController.js",
     "./src/controllers/HomeBannerController.js",

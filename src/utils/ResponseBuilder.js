@@ -180,6 +180,7 @@ function buildBlogResponse(blog) {
   return {
     id: blog._id,
     title: blog.title,
+    category: blog.category || "",
     writtenBy: blog.writtenBy,
     difficulty: blog.difficulty,
     topic: blog.topic,
@@ -263,6 +264,21 @@ function buildHomeBannerResponse(banner) {
   };
 }
 
+function buildEnquiryResponse(enquiry) {
+  if (!enquiry) return null;
+
+  return {
+    id: enquiry._id,
+    name: enquiry.name,
+    email: enquiry.email,
+    projectType: enquiry.projectType,
+    message: enquiry.message,
+    status: enquiry.status,
+    createdAt: convertDateToString(enquiry.createdAt),
+    updatedAt: convertDateToString(enquiry.updatedAt),
+  };
+}
+
 function buildSoundResponse(sound) {
   if (!sound) return null;
 
@@ -289,6 +305,7 @@ module.exports = {
   buildCityResponse,
   buildContentResponse,
   buildBlogResponse,
+  buildEnquiryResponse,
   buildOurServiceResponse,
   buildContactInfoResponse,
   buildPortfolioResponse,
