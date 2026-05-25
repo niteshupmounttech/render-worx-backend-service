@@ -1,11 +1,16 @@
 module.exports = {
   apps: [
     {
-      name: "render-admin-service",
+      name: "admin-service",
       script: "./src/index.js",
+      instances: 1,
+      exec_mode: "fork",
       watch: false,
-      env: { NODE_ENV: "development" },
-      env_production: { NODE_ENV: "production" },
-    },
-  ],
+      autorestart: true,
+      max_memory_restart: "500M",
+      env: {
+        NODE_ENV: "production"
+      }
+    }
+  ]
 };
