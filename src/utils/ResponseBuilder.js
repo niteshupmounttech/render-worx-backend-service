@@ -264,6 +264,25 @@ function buildHomeBannerResponse(banner) {
   };
 }
 
+function buildAboutUsResponse(about) {
+  if (!about) return null;
+
+  return {
+    mainTitle: about.mainTitle || "",
+    mainDescription: about.mainDescription || "",
+    mission: about.mission || "",
+    vision: about.vision || "",
+    aboutImage: about.aboutImage || "",
+    statPoints: (about.statPoints || []).map((s) => ({ id: s._id, value: s.value, label: s.label })),
+    advantagePoints: (about.advantagePoints || []).map((a) => ({ id: a._id, title: a.title, description: a.description })),
+    workSteps: (about.workSteps || []).map((w) => ({ id: w._id, step: w.step, icon: w.icon, title: w.title, description: w.description })),
+    clientStories: (about.clientStories || []).map((c) => ({ id: c._id, quote: c.quote, name: c.name, title: c.title })),
+    teamMembers: (about.teamMembers || []).map((t) => ({ id: t._id, name: t.name, designation: t.designation, bio: t.bio, image: t.image, order: t.order })),
+    createdAt: convertDateToString(about.createdAt),
+    updatedAt: convertDateToString(about.updatedAt),
+  };
+}
+
 function buildEnquiryResponse(enquiry) {
   if (!enquiry) return null;
 
@@ -306,6 +325,7 @@ module.exports = {
   buildCityResponse,
   buildContentResponse,
   buildBlogResponse,
+  buildAboutUsResponse,
   buildEnquiryResponse,
   buildOurServiceResponse,
   buildContactInfoResponse,
